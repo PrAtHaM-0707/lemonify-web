@@ -12,7 +12,7 @@ function Navbar() {
     { name: 'Support Server', href: 'https://discord.gg/gjKsAeBuUF' },
   ];
 
-  const handleFeatureClick = (e: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleFeatureClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLLinkElement>) => {
     const href = e.currentTarget.getAttribute('href');
     if (href === '/#features') {
       e.preventDefault();
@@ -34,18 +34,27 @@ function Navbar() {
             </Link>
           </div>
           
-          
           <div className="hidden md:flex md:items-center md:space-x-8">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={handleFeatureClick}
-                className="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200"
-              >
-                {item.name}
-              </a>
-            ))}
+            {navigation.map((item) =>
+              item.href.startsWith('http') ? (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200"
+                >
+                  {item.name}
+                </a>
+              ) : (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  onClick={item.href === '/#features' ? handleFeatureClick : undefined}
+                  className="text-white/80 hover:text-white px-3 py-2 text-sm font-medium transition-colors duration-200"
+                >
+                  {item.name}
+                </Link>
+              )
+            )}
             <a
               href="https://discord.com/oauth2/authorize?client_id=1252893802193096806&permissions=8&integration_type=0&scope=bot+applications.commands"
               className="rounded-full bg-gradient-to-r from-yellow-400 to-orange-500 px-4 py-2 text-sm font-semibold text-white shadow-sm hover:from-yellow-500 hover:to-orange-600 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-yellow-500 transition-all duration-200"
@@ -54,7 +63,6 @@ function Navbar() {
             </a>
           </div>
 
-         
           <div className="flex md:hidden">
             <button
               type="button"
@@ -67,20 +75,29 @@ function Navbar() {
         </div>
       </div>
 
-      
       {isOpen && (
         <div className="md:hidden">
           <div className="space-y-1 px-2 pb-3 pt-2">
-            {navigation.map((item) => (
-              <a
-                key={item.name}
-                href={item.href}
-                onClick={handleFeatureClick}
-                className="block rounded-md px-3 py-2 text-base font-medium text-white/80 hover:bg-white/20 hover:text-white"
-              >
-                {item.name}
-              </a>
-            ))}
+            {navigation.map((item) =>
+              item.href.startsWith('http') ? (
+                <a
+                  key={item.name}
+                  href={item.href}
+                  className="block rounded-md px-3 py-2 text-base font-medium text-white/80 hover:bg-white/20 hover:text-white"
+                >
+                  {item.name}
+                </a>
+              ) : (
+                <Link
+                  key={item.name}
+                  to={item.href}
+                  onClick={item.href === '/#features' ? handleFeatureClick : undefined}
+                  className="block rounded-md px-3 py-2 text-base font-medium text-white/80 hover:bg-white/20 hover:text-white"
+                >
+                  {item.name}
+                </Link>
+              )
+            )}
             <a
               href="https://discord.com/oauth2/authorize?client_id=1252893802193096806&permissions=8&integration_type=0&scope=bot+applications.commands"
               className="block rounded-md bg-gradient-to-r from-yellow-400 to-orange-500 px-3 py-2 text-base font-medium text-white hover:from-yellow-500 hover:to-orange-600"

@@ -1,9 +1,12 @@
 import React from 'react';
+import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
 import { Bot, Shield, MessageSquare, BarChart3, Bell, Settings, ExternalLink, Zap, Ticket, Pin, Users } from 'lucide-react';
 import Navbar from './components/Navbar';
 import FeatureCard from './components/FeatureCard';
+import Privacy from './pages/Privacy.tsx';
+import Terms from './pages/Terms.tsx';
 
-function App() {
+function Home() {
   const features = [
     { icon: Bell, title: 'Welcome System', description: 'Customize welcome messages and greet new members in style' },
     { icon: Shield, title: 'AutoMod', description: 'Automatic content moderation to keep your server safe' },
@@ -21,7 +24,6 @@ function App() {
       <div className="absolute inset-0 bg-[url('https://images.unsplash.com/photo-1550745165-9bc0b252726f?auto=format&fit=crop&q=80')] opacity-10 mix-blend-overlay"></div>
       <Navbar />
       
-     
       <div className="relative px-6 lg:px-8">
         <div className="mx-auto max-w-7xl py-20 sm:py-32">
           <div className="text-center">
@@ -52,7 +54,6 @@ function App() {
         </div>
       </div>
 
-    
       <div id="features" className="py-24 sm:py-32 relative">
         <div className="mx-auto max-w-7xl px-6 lg:px-8">
           <div className="mx-auto max-w-2xl text-center">
@@ -73,6 +74,26 @@ function App() {
         </div>
       </div>
     </div>
+  );
+}
+
+function App() {
+  return (
+    <BrowserRouter>
+      {/* Footer with Link tags */}
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/privacy" element={<Privacy />} />
+        <Route path="/terms" element={<Terms />} />
+      </Routes>
+      <footer className="bg-gray-900 text-white py-4">
+        <div className="max-w-7xl mx-auto px-6 flex justify-center gap-8">
+          <Link to="/" className="hover:text-yellow-300 transition-colors">Home</Link>
+          <Link to="/privacy" className="hover:text-yellow-300 transition-colors">Privacy</Link>
+          <Link to="/terms" className="hover:text-yellow-300 transition-colors">Terms</Link>
+        </div>
+      </footer>
+    </BrowserRouter>
   );
 }
 

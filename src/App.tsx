@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import { Bot, Shield, MessageSquare, BarChart3, Bell, Settings, ExternalLink, Zap, Ticket, Pin, Users } from 'lucide-react';
 import Navbar from './components/Navbar';
 import FeatureCard from './components/FeatureCard';
@@ -80,19 +80,11 @@ function Home() {
 function App() {
   return (
     <BrowserRouter>
-      {/* Footer with Link tags */}
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/privacy" element={<Privacy />} />
         <Route path="/terms" element={<Terms />} />
       </Routes>
-      <footer className="bg-gray-900 text-white py-4">
-        <div className="max-w-7xl mx-auto px-6 flex justify-center gap-8">
-          <Link to="/" className="hover:text-yellow-300 transition-colors">Home</Link>
-          <Link to="/privacy" className="hover:text-yellow-300 transition-colors">Privacy</Link>
-          <Link to="/terms" className="hover:text-yellow-300 transition-colors">Terms</Link>
-        </div>
-      </footer>
     </BrowserRouter>
   );
 }

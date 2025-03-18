@@ -1,24 +1,39 @@
 import React from 'react';
 import { Diamond as Lemon, Menu, X } from 'lucide-react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 
 function Navbar() {
   const [isOpen, setIsOpen] = React.useState(false);
+  const location = useLocation(); 
+  const navigate = useNavigate(); 
 
   const navigation = [
+    { name: 'Home', href: '/' },
     { name: 'Features', href: '/#features' },
     { name: 'Privacy Policy', href: '/privacy' },
     { name: 'Terms of Service', href: '/terms' },
     { name: 'Support Server', href: 'https://discord.gg/gjKsAeBuUF' },
   ];
 
-  const handleFeatureClick = (e: React.MouseEvent<HTMLAnchorElement | HTMLLinkElement>) => {
+  const handleFeatureClick = (e: React.MouseEvent<HTMLLinkElement>) => {
+    e.preventDefault();
     const href = e.currentTarget.getAttribute('href');
+
     if (href === '/#features') {
-      e.preventDefault();
-      const featuresSection = document.getElementById('features');
-      if (featuresSection) {
-        featuresSection.scrollIntoView({ behavior: 'smooth' });
+      if (location.pathname !== '/') {
+        navigate('/');
+       setTimeout(() => {
+          const featuresSection = document.getElementById('features');
+          if (featuresSection) {
+            featuresSection.scrollIntoView({ behavior: 'smooth' });
+          }
+        }, 100); // Small delay to ensure DOM updates
+      } else {
+        // If already on home, just scroll
+        const featuresSection = document.getElementById('features');
+        if (featuresSection) {
+          featuresSection.scrollIntoView({ behavior: 'smooth' });
+        }
       }
     }
   };
